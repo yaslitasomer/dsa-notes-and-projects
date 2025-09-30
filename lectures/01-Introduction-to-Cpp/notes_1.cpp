@@ -154,7 +154,7 @@ void pointer_and_consts()
     int i = 0;
     int *const p = &i;
 
-    //p = &j // error
+    // p = &j // error
     cout << i << endl;
     *p = 6;
     cout << i << endl;
@@ -169,7 +169,39 @@ void pointer_and_consts()
     cout << *q << endl;
 }
 
+// Namespace
+namespace first
+{
+    int value = 500;
+}
+int value = 100;
+void namespace_call()
+{
+    int value = 200;
+    cout << "Val in global scope: " << ::value << endl;
+    cout << "Val in namespace first: " << first::value << endl;
+    cout << "Val in local scope: " << value << endl;
+}
 
+namespace StackMemory
+{
+
+    void foo()
+    {
+        int x = 42;
+        cout << "x in foo() : " << x << endl;
+        cout << "&x in foo() : " << &x << endl;
+    }
+
+    int main()
+    {
+        int num = 5;
+        cout << "num in main() : " << num << endl;
+        cout << "&num in main() : " << &num << endl;
+        foo();
+        return 0;
+    }
+}
 
 int main()
 {
@@ -178,9 +210,10 @@ int main()
     // pointers();
     // swap_p_Call();
     // swap_r_Call();
-    //dynamic_memory_allocation();
-    //reference_variables();
-    pointer_and_consts();
-
+    // dynamic_memory_allocation();
+    // reference_variables();
+    // pointer_and_consts();
+    // namespace_call();
+    // StackMemory::main();
     return 0;
 }
