@@ -146,6 +146,56 @@ namespace Sort
         // Average case: O(n^2)
     }
 
+    const int MAX_SIZE = 50;
+    void merge(int theArray[], int first, int mid, int last)
+    {
+        int tempArray[MAX_SIZE];
+        int first1 = first;
+        int last1 = mid;
+        int first2 = mid + 1;
+        int last2 = last;
+        int index = first1;
+
+        for (; (first1 <= last1) && (first2 <= last2); ++index)
+        {
+            if (theArray[first1] < theArray[first2])
+                tempArray[index] = theArray[first1++];
+            else
+                tempArray[index] = theArray[first2++];
+        }
+
+        // finish off the 1st subarray if necessary
+        for (; first1 <= last1; ++first1, ++index)
+        {
+            tempArray[index] = theArray[first1];
+        }
+
+        // finish off the 2nd subarray if necessary
+        for (; first2 <= last2; ++first2, ++index)
+        {
+            tempArray[index] = theArray[first2];
+        }
+
+        // copy the result back to the original array
+        for (index = first; index <= last; ++index)
+        {
+            theArray[index] = tempArray[index];
+        }
+    }
+
+    void mergeSort(int theArray[], int first, int last)
+    {
+        if (first < last) // more than one item
+        { 
+            int mid = (first + last) / 2;
+            mergeSort(theArray, first, mid);
+            mergeSort(theArray, mid + 1, last);
+
+            // merge the two halves
+            merge(theArray, first, mid, last);
+        }
+    }
+
 }
 
 int main()
@@ -166,8 +216,15 @@ int main()
     Sort::printArray(data, size);
     */
 
+    /*
     Sort::bubleSort(data, size);
     Sort::printArray(data, size);
+    */
+
+    int arr[] = {5, 2, 4, 7, 1, 3, 2, 6};
+    size = sizeof(arr) / sizeof(arr[0]);
+    Sort::mergeSort(arr, 0, size);
+    Sort::printArray(arr, size);
 
     return 0;
 }
